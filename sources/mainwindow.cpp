@@ -1,6 +1,6 @@
-#include "mainwindow.h"
+#include "../headers/mainwindow.h"
 #include "ui_mainwindow.h"
-#include "apimodel.h"
+#include "../headers/apimodel.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

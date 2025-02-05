@@ -1,4 +1,4 @@
-#include "apimodel.h"
+#include "../headers/apimodel.h"
 #include <QtCore>
 
 ApiModel::ApiModel(QObject *parent) : QThread(parent)
