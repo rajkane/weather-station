@@ -2,13 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QVariant>
+#include <QTimer>
+#include <QDateTime>
+#include "apimodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,11 +19,28 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
-private:
-    void send_request();
+    ApiModel *api;
 
 private:
     Ui::MainWindow *ui;
+    QTimer *timer;
+
+protected:
+    void closeEvent(QCloseEvent *event);
+
+public slots:
+    void slot_datetime();
+    void slot_resolved_address(QString);
+    void slot_description(QString);
+    void slot_temperature(double);
+    void slot_feelslike(double);
+    void slot_conditions(QString);
+    void slot_humidity(double);
+    void slot_windspeed(double);
+    void slot_winddir(double);
+    void slot_pressure(double);
+    void slot_sunrise(QString);
+    void slot_sunset(QString);
+    void slot_status(QString);
 };
 #endif // MAINWINDOW_H

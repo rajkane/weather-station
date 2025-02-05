@@ -1,62 +1,96 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "apimodel.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    send_request();
+    // start datetime
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(slot_datetime()));
+    timer->start(1000);
+
+    // start thread for api data
+    api = new ApiModel(this);
+    connect(api, SIGNAL(resolved_address(QString)), this, SLOT(slot_resolved_address(QString)));
+    connect(api, SIGNAL(description(QString)), this, SLOT(slot_description(QString)));
+    connect(api, SIGNAL(temperature(double)), this, SLOT(slot_temperature(double)));
+    connect(api, SIGNAL(feelslike(double)), this, SLOT(slot_feelslike(double)));
+    connect(api, SIGNAL(conditions(QString)), this, SLOT(slot_conditions(QString)));
+    connect(api, SIGNAL(humidity(double)), this, SLOT(slot_humidity(double)));
+    connect(api, SIGNAL(windspeed(double)), this, SLOT(slot_windspeed(double)));
+    connect(api, SIGNAL(winddir(double)), this, SLOT(slot_winddir(double)));
+    connect(api, SIGNAL(pressure(double)), this, SLOT(slot_pressure(double)));
+    connect(api, SIGNAL(sunrise(QString)), this, SLOT(slot_sunrise(QString)));
+    connect(api, SIGNAL(sunset(QString)), this, SLOT(slot_sunset(QString)));
+    connect(api, SIGNAL(status(QString)), this, SLOT(slot_status(QString)));
+    api->stop_command = false;
+    api->start();
+    ui->statusbar->addPermanentWidget(ui->lbl_status, 5);
+    ui->statusbar->addPermanentWidget(ui->lbl_datetime, 1);
 }
 
-void MainWindow::send_request(){
-    // create custom temporary event loop on stack
-    QEventLoop loop;
-
-    // "quit()" the event-loop, when the network request "finished()"
-    QNetworkAccessManager manager;
-    QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
-
-    // the HTTP request
-    QNetworkRequest request(QUrl(QString("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Hlohovec?unitGroup=metric&key=6ZA76ETWS76ZJPPGE99XZKNFG&contentType=json")));
-    QNetworkReply *reply = manager.get(request);
-
-    loop.exec();  // block stack until "finished()" has been called
-
-    if (reply->error() == QNetworkReply::NoError) {
-        QString data = reply->readAll();
-
-        // resolved address and description
-        QJsonDocument json_response = QJsonDocument::fromJson(data.toUtf8());
-        QJsonObject json_object = json_response.object();
-        ui->lbl_resolved_address->setText(json_object["resolvedAddress"].toString());
-        ui->lbl_description->setText(json_object["description"].toString());
-
-        // current conditions
-        QJsonObject current = json_object["currentConditions"].toObject();
-        ui->lbl_temperature->setText(QString::number(current["temp"].toDouble()) + " °C");
-        ui->lbl_feelslike->setText("Feelslike: " + QString::number(current["feelslike"].toDouble()) + " °C");
-        ui->lbl_condition->setText(current["conditions"].toString());
-        ui->lbl_humidity->setText("Humidity: " + QString::number(current["humidity"].toDouble()) + " %");
-        ui->lbl_wind->setText("Wind Speed: " + QString::number(current["windspeed"].toDouble()) + " m/s"
-                              + "\t\t|\t\tWind Direction: " + QString::number(current["winddir"].toDouble()) + " °");
-        ui->lbl_pressure->setText("Pressure: " + QString::number(current["pressure"].toInteger()) + " hPa");
-        ui->lbl_sunrise_sunset->setText("Sunrise: " + current["sunrise"].toString()
-                                        + "\t\t|\t\tSunset: " + current["sunset"].toString());
-
-        //foreach (const QJsonValue &value, days_array) {
-        //    QJsonObject days_object = value.toObject();
-        //    qDebug() << days_object["datetime"].toString();
-        //}
-
-        ui->statusbar->showMessage("Response from API: OK");
-        delete reply;
-    } else {
-        ui->statusbar->showMessage("Error" + reply->errorString());
-        delete reply;
-    }
+void MainWindow::slot_datetime(){
+    QDateTime datetime = QDateTime::currentDateTime();
+    QString dati = datetime.toString("dddd, MMMM dd, yyyy HH:mm:ss");
+    ui->lbl_datetime->setText(dati);
 }
+
+void MainWindow::slot_resolved_address(QString resolved_address){
+    ui->lbl_resolved_address->setText(resolved_address);
+}
+
+void MainWindow::slot_description(QString description){
+    ui->lbl_description->setText(description);
+}
+
+void MainWindow::slot_temperature(double temperature){
+    ui->lbl_temperature->setText(QString::number(temperature) + " °C");
+}
+
+void MainWindow::slot_feelslike(double feelslike){
+    ui->lbl_feelslike->setText("Feelslike: " + QString::number(feelslike) + " °C");
+}
+
+void MainWindow::slot_conditions(QString conditions){
+    ui->lbl_condition->setText(conditions);
+}
+
+void MainWindow::slot_humidity(double humidity){
+    ui->lbl_humidity->setText("Humidity: " + QString::number(humidity) + " %");
+}
+
+void MainWindow::slot_windspeed(double windspeed){
+    ui->lbl_wind_speed->setText("Wind Speed: " + QString::number(windspeed) + " m/s");
+}
+
+void MainWindow::slot_winddir(double winddir){
+    ui->lbl_wind_direction->setText("Wind Direction: " + QString::number(winddir) + " °");
+}
+
+void MainWindow::slot_pressure(double pressure){
+    ui->lbl_pressure->setText("Pressure: " + QString::number(pressure) + " hPa");
+}
+
+void MainWindow::slot_sunrise(QString sunrise){
+    ui->lbl_sunrise->setText("Sunrise: " + sunrise);
+}
+
+void MainWindow::slot_sunset(QString sunset){
+    ui->lbl_sunset->setText("Sunset: " + sunset);
+}
+
+void MainWindow::slot_status(QString status){
+    ui->lbl_status->setText(status);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event){
+    api->stop();
+    QMainWindow::closeEvent(event);
+}
+
 
 MainWindow::~MainWindow()
 {
