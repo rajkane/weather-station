@@ -57,8 +57,9 @@ void ApiModel::run() {
             delete reply;
             this->msleep(60000);
         } else {
-            emit status("Error" + reply->errorString());
+            emit status(reply->errorString());
             delete reply;
+            this->msleep(60000);
         }
     }
 }
