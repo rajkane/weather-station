@@ -45,7 +45,8 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(804, 653);
+        MainWindow->resize(900, 700);
+        MainWindow->setMinimumSize(QSize(900, 700));
         MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(61, 56, 70);\n"
 "color: rgb(143, 240, 164);"));
         centralwidget = new QWidget(MainWindow);
@@ -165,11 +166,8 @@ public:
 
         lbl_temperature = new QLabel(centralwidget);
         lbl_temperature->setObjectName("lbl_temperature");
-        QSizePolicy sizePolicy1(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(lbl_temperature->sizePolicy().hasHeightForWidth());
-        lbl_temperature->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(lbl_temperature->sizePolicy().hasHeightForWidth());
+        lbl_temperature->setSizePolicy(sizePolicy);
         lbl_temperature->setStyleSheet(QString::fromUtf8("font: 100pt \"Ubuntu Sans\";"));
         lbl_temperature->setFrameShape(QFrame::Shape::WinPanel);
         lbl_temperature->setFrameShadow(QFrame::Shadow::Raised);
@@ -180,6 +178,9 @@ public:
 
         lbl_description = new QLabel(centralwidget);
         lbl_description->setObjectName("lbl_description");
+        QSizePolicy sizePolicy1(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(lbl_description->sizePolicy().hasHeightForWidth());
         lbl_description->setSizePolicy(sizePolicy1);
         lbl_description->setStyleSheet(QString::fromUtf8("font: 12pt \"Ubuntu Sans\";"));
@@ -205,7 +206,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 804, 23));
+        menubar->setGeometry(QRect(0, 0, 900, 23));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
