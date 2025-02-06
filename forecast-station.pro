@@ -27,6 +27,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     Images/sunny.png \
+    Images/weather-station.png \
     LICENSE \
     README.md
 

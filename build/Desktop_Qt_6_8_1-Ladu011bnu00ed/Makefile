@@ -64,6 +64,7 @@ OBJECTS       = main.o \
 		moc_apimodel.o \
 		moc_mainwindow.o
 DIST          = ../../Images/sunny.png \
+		../../Images/weather-station.png \
 		../../LICENSE \
 		../../README.md \
 		/Qt/6.8.1/gcc_64/mkspecs/features/spec_pre.prf \
