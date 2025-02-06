@@ -1200,6 +1200,7 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resource.cpp
 qrc_resource.cpp: ../../resource.qrc \
 		../../../../Qt/6.8.1/gcc_64/libexec/rcc \
+		../../Images/weather-station.png \
 		../../Images/sunny.png
 	/home/daniel/Qt/6.8.1/gcc_64/libexec/rcc -name resource ../../resource.qrc -o qrc_resource.cpp
 
