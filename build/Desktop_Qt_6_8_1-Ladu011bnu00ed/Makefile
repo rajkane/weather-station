@@ -54,14 +54,17 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../../main.cpp \
 		../../sources/apimodel.cpp \
-		../../sources/mainwindow.cpp moc_apimodel.cpp \
+		../../sources/mainwindow.cpp qrc_resource.cpp \
+		moc_apimodel.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		apimodel.o \
 		mainwindow.o \
+		qrc_resource.o \
 		moc_apimodel.o \
 		moc_mainwindow.o
-DIST          = ../../LICENSE \
+DIST          = ../../Images/sunny.png \
+		../../LICENSE \
 		../../README.md \
 		/Qt/6.8.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/Qt/6.8.1/gcc_64/mkspecs/common/unix.conf \
@@ -785,6 +788,7 @@ Makefile: ../../forecast-station.pro ../../../../Qt/6.8.1/gcc_64/mkspecs/feature
 		../../../../Qt/6.8.1/gcc_64/mkspecs/features/yacc.prf \
 		../../../../Qt/6.8.1/gcc_64/mkspecs/features/lex.prf \
 		../../forecast-station.pro \
+		../../resource.qrc \
 		../../../../Qt/6.8.1/gcc_64/lib/libQt6Widgets.prl \
 		../../../../Qt/6.8.1/gcc_64/lib/libQt6Gui.prl \
 		../../../../Qt/6.8.1/gcc_64/lib/libQt6Network.prl \
@@ -1144,6 +1148,7 @@ Makefile: ../../forecast-station.pro ../../../../Qt/6.8.1/gcc_64/mkspecs/feature
 ../../../../Qt/6.8.1/gcc_64/mkspecs/features/yacc.prf:
 ../../../../Qt/6.8.1/gcc_64/mkspecs/features/lex.prf:
 ../../forecast-station.pro:
+../../resource.qrc:
 ../../../../Qt/6.8.1/gcc_64/lib/libQt6Widgets.prl:
 ../../../../Qt/6.8.1/gcc_64/lib/libQt6Gui.prl:
 ../../../../Qt/6.8.1/gcc_64/lib/libQt6Network.prl:
@@ -1162,6 +1167,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../../resource.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/6.8.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../headers/apimodel.h ../../headers/mainwindow.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../main.cpp ../../sources/apimodel.cpp ../../sources/mainwindow.cpp $(DISTDIR)/
@@ -1189,8 +1195,14 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_resource.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_resource.cpp
+qrc_resource.cpp: ../../resource.qrc \
+		../../../../Qt/6.8.1/gcc_64/libexec/rcc \
+		../../Images/sunny.png
+	/home/daniel/Qt/6.8.1/gcc_64/libexec/rcc -name resource ../../resource.qrc -o qrc_resource.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -1631,7 +1643,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -2303,11 +2315,13 @@ mainwindow.o: ../../sources/mainwindow.cpp ../../headers/mainwindow.h \
 		../../../../Qt/6.8.1/gcc_64/include/QtWidgets/QMenuBar \
 		../../../../Qt/6.8.1/gcc_64/include/QtWidgets/qmenubar.h \
 		../../../../Qt/6.8.1/gcc_64/include/QtWidgets/qmenu.h \
-		../../../../Qt/6.8.1/gcc_64/include/QtWidgets/QSpacerItem \
 		../../../../Qt/6.8.1/gcc_64/include/QtWidgets/QStatusBar \
 		../../../../Qt/6.8.1/gcc_64/include/QtWidgets/qstatusbar.h \
 		../../../../Qt/6.8.1/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../sources/mainwindow.cpp
+
+qrc_resource.o: qrc_resource.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resource.o qrc_resource.cpp
 
 moc_apimodel.o: moc_apimodel.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_apimodel.o moc_apimodel.cpp

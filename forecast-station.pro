@@ -26,5 +26,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    Images/sunny.png \
     LICENSE \
     README.md
+
+RESOURCES += \
+    resource.qrc
