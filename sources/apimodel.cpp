@@ -59,7 +59,6 @@ void ApiModel::run() {
         } else {
             emit status("Error" + reply->errorString());
             delete reply;
-            break;
         }
     }
 }
