@@ -8,7 +8,7 @@ I implemented threading (QThread) to update the data
 every 60 seconds and the current datetime every second.
 
 ---
-![screenshot](qrc:/qrc/Images/weather-station.png)
+![screenshot](./Images/weather-station.png)
 
 
 
