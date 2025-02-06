@@ -63,7 +63,7 @@ void MainWindow::slot_humidity(double humidity){
 }
 
 void MainWindow::slot_windspeed(double windspeed){
-    ui->lbl_wind_speed->setText("Wind Speed:\n" + QString::number(windspeed) + " m/s");
+    ui->lbl_wind_speed->setText("Wind Speed:\n" + QString::number(windspeed) + " km/h");
 }
 
 void MainWindow::slot_winddir(double winddir){
