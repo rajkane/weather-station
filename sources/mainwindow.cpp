@@ -51,7 +51,7 @@ void MainWindow::slot_temperature(double temperature){
 }
 
 void MainWindow::slot_feelslike(double feelslike){
-    ui->lbl_feelslike->setText("Feelslike: " + QString::number(feelslike) + " °C");
+    ui->lbl_feelslike->setText("Feelslike:\n" + QString::number(feelslike) + " °C");
 }
 
 void MainWindow::slot_conditions(QString conditions){
@@ -59,27 +59,27 @@ void MainWindow::slot_conditions(QString conditions){
 }
 
 void MainWindow::slot_humidity(double humidity){
-    ui->lbl_humidity->setText("Humidity: " + QString::number(humidity) + " %");
+    ui->lbl_humidity->setText("Humidity:\n" + QString::number(humidity) + " %");
 }
 
 void MainWindow::slot_windspeed(double windspeed){
-    ui->lbl_wind_speed->setText("Wind Speed: " + QString::number(windspeed) + " m/s");
+    ui->lbl_wind_speed->setText("Wind Speed:\n" + QString::number(windspeed) + " m/s");
 }
 
 void MainWindow::slot_winddir(double winddir){
-    ui->lbl_wind_direction->setText("Wind Direction: " + QString::number(winddir) + " °");
+    ui->lbl_wind_direction->setText("Wind Direction:\n" + QString::number(winddir) + " °");
 }
 
 void MainWindow::slot_pressure(double pressure){
-    ui->lbl_pressure->setText("Pressure: " + QString::number(pressure) + " hPa");
+    ui->lbl_pressure->setText("Pressure:\n" + QString::number(pressure) + " hPa");
 }
 
 void MainWindow::slot_sunrise(QString sunrise){
-    ui->lbl_sunrise->setText("Sunrise: " + sunrise);
+    ui->lbl_sunrise->setText("Sunrise:\n" + sunrise);
 }
 
 void MainWindow::slot_sunset(QString sunset){
-    ui->lbl_sunset->setText("Sunset: " + sunset);
+    ui->lbl_sunset->setText("Sunset:\n" + sunset);
 }
 
 void MainWindow::slot_status(QString status){
