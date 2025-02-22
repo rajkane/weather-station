@@ -1,6 +1,8 @@
 #ifndef APIMODEL_H
 #define APIMODEL_H
-#include <QtCore>
+#include <QThread>
+#include <QMutex>
+#include <QEventLoop>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkAccessManager>

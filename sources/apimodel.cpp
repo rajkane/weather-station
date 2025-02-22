@@ -1,5 +1,4 @@
 #include "../headers/apimodel.h"
-#include <QtCore>
 
 ApiModel::ApiModel(QObject *parent) : QThread(parent)
 {
@@ -48,10 +47,13 @@ void ApiModel::run() {
             emit sunrise(current["sunrise"].toString());
             emit sunset(current["sunset"].toString());
 
-            //foreach (const QJsonValue &value, days_array) {
-            //    QJsonObject days_object = value.toObject();
-            //    qDebug() << days_object["datetime"].toString();
-            //}
+            QJsonArray days_array = json_object["days"].toArray();
+            foreach(const QJsonValue &value, days_array) {
+                QJsonObject days_object = value.toObject();
+                QDateTime day = QDateTime::fromString(days_object["datetime"].toString(), "yyyy-MM-dd");
+                qDebug() << day.toString("ddd, MMM dd") << "\t" << days_object["tempmin"].toDouble()
+                         << "\t" << days_object["tempmax"].toDouble() << "\t" << days_object["conditions"].toString();
+            }
 
             emit status("Data was successfully updated");
             delete reply;
