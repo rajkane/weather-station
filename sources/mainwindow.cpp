@@ -25,6 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(api, SIGNAL(pressure(double)), this, SLOT(slot_pressure(double)));
     connect(api, SIGNAL(sunrise(QString)), this, SLOT(slot_sunrise(QString)));
     connect(api, SIGNAL(sunset(QString)), this, SLOT(slot_sunset(QString)));
+    connect(api, SIGNAL(forecast_date(QString)), this, SLOT(slot_forecast_date(QString)));
+    connect(api, SIGNAL(forecast_temp_min(double)), this, SLOT(slot_forecast_temp_min(double)));
+    connect(api, SIGNAL(forecast_temp_max(double)), this, SLOT(slot_forecast_temp_max(double)));
+    connect(api, SIGNAL(forecast_conditions(QString)), this, SLOT(slot_forecast_conditions(QString)));
     connect(api, SIGNAL(status(QString)), this, SLOT(slot_status(QString)));
     api->stop_command = false;
     api->start();
@@ -81,6 +85,11 @@ void MainWindow::slot_sunrise(QString sunrise){
 void MainWindow::slot_sunset(QString sunset){
     ui->lbl_sunset->setText("Sunset:\n" + sunset);
 }
+
+void MainWindow::slot_forecast_date(QString date) {}
+void MainWindow::slot_forecast_temp_min(double tempmin) {}
+void MainWindow::slot_forecast_temp_max(double tempmax) {}
+void MainWindow::slot_forecast_conditions(QString conditions) {}
 
 void MainWindow::slot_status(QString status){
     ui->lbl_status->setText(status);

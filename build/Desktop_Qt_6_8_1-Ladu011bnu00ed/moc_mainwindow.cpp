@@ -52,6 +52,10 @@ static constexpr auto qt_meta_stringdata_ZN10MainWindowE = QtMocHelpers::stringD
     "slot_pressure",
     "slot_sunrise",
     "slot_sunset",
+    "slot_forecast_date",
+    "slot_forecast_temp_min",
+    "slot_forecast_temp_max",
+    "slot_forecast_conditions",
     "slot_status"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
@@ -64,7 +68,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10MainWindowE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -72,19 +76,23 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10MainWindowE[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   92,    2, 0x0a,    1 /* Public */,
-       3,    1,   93,    2, 0x0a,    2 /* Public */,
-       4,    1,   96,    2, 0x0a,    4 /* Public */,
-       5,    1,   99,    2, 0x0a,    6 /* Public */,
-       6,    1,  102,    2, 0x0a,    8 /* Public */,
-       7,    1,  105,    2, 0x0a,   10 /* Public */,
-       8,    1,  108,    2, 0x0a,   12 /* Public */,
-       9,    1,  111,    2, 0x0a,   14 /* Public */,
-      10,    1,  114,    2, 0x0a,   16 /* Public */,
-      11,    1,  117,    2, 0x0a,   18 /* Public */,
-      12,    1,  120,    2, 0x0a,   20 /* Public */,
-      13,    1,  123,    2, 0x0a,   22 /* Public */,
-      14,    1,  126,    2, 0x0a,   24 /* Public */,
+       1,    0,  116,    2, 0x0a,    1 /* Public */,
+       3,    1,  117,    2, 0x0a,    2 /* Public */,
+       4,    1,  120,    2, 0x0a,    4 /* Public */,
+       5,    1,  123,    2, 0x0a,    6 /* Public */,
+       6,    1,  126,    2, 0x0a,    8 /* Public */,
+       7,    1,  129,    2, 0x0a,   10 /* Public */,
+       8,    1,  132,    2, 0x0a,   12 /* Public */,
+       9,    1,  135,    2, 0x0a,   14 /* Public */,
+      10,    1,  138,    2, 0x0a,   16 /* Public */,
+      11,    1,  141,    2, 0x0a,   18 /* Public */,
+      12,    1,  144,    2, 0x0a,   20 /* Public */,
+      13,    1,  147,    2, 0x0a,   22 /* Public */,
+      14,    1,  150,    2, 0x0a,   24 /* Public */,
+      15,    1,  153,    2, 0x0a,   26 /* Public */,
+      16,    1,  156,    2, 0x0a,   28 /* Public */,
+      17,    1,  159,    2, 0x0a,   30 /* Public */,
+      18,    1,  162,    2, 0x0a,   32 /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -98,6 +106,10 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10MainWindowE[] = {
     QMetaType::Void, QMetaType::Double,    2,
     QMetaType::Void, QMetaType::Double,    2,
     QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void, QMetaType::Double,    2,
+    QMetaType::Void, QMetaType::Double,    2,
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void, QMetaType::QString,    2,
 
@@ -148,6 +160,18 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'slot_sunset'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        // method 'slot_forecast_date'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        // method 'slot_forecast_temp_min'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<double, std::false_type>,
+        // method 'slot_forecast_temp_max'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<double, std::false_type>,
+        // method 'slot_forecast_conditions'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
         // method 'slot_status'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QString, std::false_type>
@@ -172,7 +196,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 9: _t->slot_pressure((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
         case 10: _t->slot_sunrise((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 11: _t->slot_sunset((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 12: _t->slot_status((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 12: _t->slot_forecast_date((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 13: _t->slot_forecast_temp_min((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 14: _t->slot_forecast_temp_max((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 15: _t->slot_forecast_conditions((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 16: _t->slot_status((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         default: ;
         }
     }
@@ -197,14 +225,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 17;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 17)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 13;
+        _id -= 17;
     }
     return _id;
 }

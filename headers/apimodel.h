@@ -32,6 +32,10 @@ signals:
     void pressure(double);
     void sunrise(QString);
     void sunset(QString);
+    void forecast_date(QString);
+    void forecast_temp_min(double);
+    void forecast_temp_max(double);
+    void forecast_conditions(QString);
     void status(QString);
 };
 
