@@ -41,10 +41,8 @@ public slots:
     void slot_pressure(double);
     void slot_sunrise(QString);
     void slot_sunset(QString);
-    void slot_forecast_date(QString);
-    void slot_forecast_temp_min(double);
-    void slot_forecast_temp_max(double);
-    void slot_forecast_conditions(QString);
+    void slot_forecast(QString, double, double, QString);
+    void slot_clear(bool);
     void slot_status(QString);
 };
 #endif // MAINWINDOW_H

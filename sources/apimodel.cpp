@@ -28,6 +28,7 @@ void ApiModel::run() {
 
         if (reply->error() == QNetworkReply::NoError) {
             QString data = reply->readAll();
+            emit clear(false);
 
             // resolved address and description
             QJsonDocument json_response = QJsonDocument::fromJson(data.toUtf8());
@@ -50,16 +51,15 @@ void ApiModel::run() {
             QJsonArray days_array = json_object["days"].toArray();
             foreach(const QJsonValue &value, days_array) {
                 QJsonObject days_object = value.toObject();
-                QDateTime day = QDateTime::fromString(days_object["datetime"].toString(), "yyyy-MM-dd");
-                emit forecast_date(day.toString("ddd, MMM dd"));
-                emit forecast_temp_min(days_object["tempmin"].toDouble());
-                emit forecast_temp_max(days_object["tempmax"].toDouble());
-                emit forecast_conditions(days_object["conditions"].toString());
+                // QDateTime day = QDateTime::fromString(days_object["datetime"].toString(), "yyyy-MM-dd");
+                emit forecast(days_object["datetime"].toString(), days_object["tempmin"].toDouble(),
+                              days_object["tempmax"].toDouble(), days_object["conditions"].toString());
             }
 
             emit status("Data was successfully updated");
             delete reply;
             this->msleep(60000);
+            this->clear(true);
         } else {
             emit status(reply->errorString());
             delete reply;
