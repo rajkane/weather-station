@@ -59,7 +59,7 @@ void ApiModel::run() {
             emit status("Data was successfully updated");
             delete reply;
             this->msleep(60000);
-            this->clear(true);
+            emit clear(true);
         } else {
             emit status(reply->errorString());
             delete reply;
